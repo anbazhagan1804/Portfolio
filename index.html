@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anbazhagan M — Network & DevOps Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════
+       RESET & ROOT
+    ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #000000;
+      --bg-alt:   #000000;
+      --border:   rgba(255,255,255,0.09);
+      --border2:  rgba(255,255,255,0.16);
+      --text:     #e8e4d9;
+      --muted:    #7a7870;
+      --accent:   #7ec8e3;
+      --gold:     #c9956c;
+      --green:    #4ade80;
+      --white:    #ffffff;
+
+      --serif:  'Cormorant Garamond', Georgia, serif;
+      --mono:   'IBM Plex Mono', 'Menlo', monospace;
+      --sans:   'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+
+      --nav-h:  56px;
+      --col:    80px; /* grid column width */
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: #000000;
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══════════════════════════════════════════
+       DIAMOND ORNAMENTS
+    ═══════════════════════════════════════════ */
+    .diamond {
+      position: absolute; width: 10px; height: 10px;
+      border: 1px solid var(--border2);
+      transform: rotate(45deg);
+      background: #000000;
+      z-index: 2;
+    }
+
+    .diamond.tl { top: -5px;  left: -5px; }
+    .diamond.tr { top: -5px;  right: -5px; }
+    .diamond.bl { bottom: -5px; left: -5px; }
+    .diamond.br { bottom: -5px; right: -5px; }
+    .diamond.tc { top: -5px;  left: 50%; transform: translateX(-50%) rotate(45deg); }
+    .diamond.bc { bottom: -5px; left: 50%; transform: translateX(-50%) rotate(45deg); }
+
+    /* ═══════════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--text); text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.72rem; font-weight: 400;
+      color: var(--muted); text-decoration: none;
+      letter-spacing: 0.06em; text-transform: lowercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent) !important;
+      color: #0c1e27 !important;
+      padding: 7px 18px !important;
+      border-radius: 980px !important;
+      font-weight: 500 !important;
+      font-size: 0.72rem !important;
+    }
+
+    .nav-hamburger {
+      display: none; flex-direction: column;
+      gap: 5px; cursor: pointer; padding: 4px;
+    }
+
+    .nav-hamburger span { display: block; width: 20px; height: 1px; background: var(--text); }
+
+    @media(max-width: 768px) {
+      .nav-hamburger { display: flex; }
+      .nav-links { display: none; }
+      nav { padding: 0 20px; }
+    }
+
+    /* ═══════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════ */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 var(--col) 72px;
+      padding-top: var(--nav-h);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    /* Mountain silhouette — matching the B&W photo feel */
+    .hero-mountain {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 110% 80% at 65% 110%, #1c2c34 0%, transparent 52%),
+        radial-gradient(ellipse 70% 60% at 85% 100%, #101c22 0%, transparent 50%),
+        radial-gradient(ellipse 40% 40% at 30% 100%, #141e24 0%, transparent 55%);
+    }
+
+    /* Jagged mountain outline */
+    .hero-mountain::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 65%;
+      background: linear-gradient(to top, #1c2c34 0%, transparent 100%);
+      clip-path: polygon(
+        0% 100%, 0% 72%,
+        4% 64%, 8% 70%, 12% 58%, 17% 68%, 22% 50%,
+        26% 62%, 30% 44%, 35% 56%, 40% 36%, 44% 48%,
+        48% 25%, 52% 38%, 56% 15%, 60% 30%, 64% 9%,
+        67% 22%, 71% 4%, 74% 18%, 77% 6%, 80% 16%,
+        83% 3%, 86% 13%, 89% 6%, 92% 16%, 95% 9%,
+        98% 18%, 100% 14%, 100% 100%
+      );
+      opacity: 0.85;
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 660px; }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 6.5vw, 6rem);
+      font-weight: 600; line-height: 1.04;
+      color: var(--white); letter-spacing: -0.01em;
+      margin-bottom: 36px;
+    }
+
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 24px; border-radius: 980px;
+      font-family: var(--mono); font-size: 0.74rem; font-weight: 500;
+      text-decoration: none; cursor: pointer; border: 1px solid transparent;
+      transition: background 0.2s, transform 0.15s, opacity 0.2s;
+      letter-spacing: 0.04em; text-transform: lowercase;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn-accent { background: var(--accent); color: #0c1e27; border-color: var(--accent); }
+    .btn-accent:hover { background: #95d5ea; }
+    .btn-ghost { background: transparent; color: var(--text); border-color: var(--border2); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.3); }
+
+    .hero-badge {
+      position: absolute; top: calc(var(--nav-h) + 24px); right: 40px; z-index: 3;
+      display: flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border2);
+      border-radius: 980px; padding: 6px 16px;
+      font-family: var(--mono);
+      font-size: 0.64rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      background: rgba(22,22,22,0.6);
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 7px var(--green);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    @media(max-width:768px){
+      .hero { padding: 80px 24px 60px; }
+      .hero-badge { display: none; }
+    }
+
+    /* ═══════════════════════════════════════════
+       SECTION WRAPPER
+    ═══════════════════════════════════════════ */
+    .sec {
+      position: relative; z-index: 1;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .container {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 var(--col);
+    }
+
+    @media(max-width:768px){ .container { padding: 0 20px; } }
+
+    /* Section header row — title left, tagline right (like aetherfox) */
+    .sec-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 32px; padding: 64px 0 0;
+      flex-wrap: wrap;
+    }
+
+    .sec-heading {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 600; line-height: 1.1;
+      color: var(--white); letter-spacing: -0.01em;
+    }
+
+    .sec-tagline {
+      font-family: var(--mono);
+      font-size: 0.72rem; font-weight: 500;
+      color: var(--gold); letter-spacing: 0.08em;
+      text-align: right; flex-shrink: 0;
+      padding-bottom: 6px;
+    }
+
+    /* Simple centered section header (for CTA) */
+    .sec-center { text-align: center; padding: 100px 0 0; }
+
+    .sec-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: lowercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+
+    .sec-title-xl {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      font-weight: 600; line-height: 1.08;
+      color: var(--white); letter-spacing: -0.015em;
+    }
+
+    /* ═══════════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════════ */
+
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--border);
+      margin-top: 48px; position: relative;
+    }
+
+    .about-grid .diamond.tl { top: -5px; left: -5px; }
+    .about-grid .diamond.tr { top: -5px; right: -5px; }
+    .about-grid .diamond.tc { top: -5px; left: 50%; }
+    .about-grid .diamond.bl { bottom: -5px; left: -5px; }
+    .about-grid .diamond.br { bottom: -5px; right: -5px; }
+    .about-grid .diamond.bc { bottom: -5px; left: 50%; }
+
+    .about-left {
+      padding: 52px 52px 72px 0;
+      border-right: 1px solid var(--border);
+    }
+
+    .about-right { padding: 52px 0 72px 52px; }
+
+    .about-text {
+      font-family: var(--sans);
+      font-size: 0.95rem; color: rgba(232,228,217,0.65);
+      line-height: 1.82; font-weight: 300; margin-bottom: 18px;
+    }
+
+    .stat-row {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      border-top: 1px solid var(--border); margin-top: 44px;
+      position: relative;
+    }
+
+    .stat-cell {
+      padding: 28px 0; border-right: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .stat-cell:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 2.6rem; font-weight: 600;
+      color: var(--white); letter-spacing: -0.02em; line-height: 1;
+    }
+
+    .stat-lbl {
+      font-family: var(--mono);
+      font-size: 0.6rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.14em; margin-top: 7px;
+    }
+
+    .meta-table {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+    }
+
+    .meta-cell {
+      padding: 18px 22px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .meta-cell:nth-child(even)  { border-right: none; }
+    .meta-cell.span2 { grid-column: 1/-1; border-right: none; border-bottom: none; }
+
+    /* Remove bottom border from last row pair */
+    .meta-cell:nth-last-child(1),
+    .meta-cell:nth-last-child(2) { border-bottom: none; }
+
+    .meta-lbl {
+      font-family: var(--mono);
+      font-size: 0.58rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 5px;
+    }
+
+    .meta-val {
+      font-family: var(--sans);
+      font-size: 0.86rem; font-weight: 400; color: var(--text);
+    }
+
+    @media(max-width:900px){
+      .about-grid { grid-template-columns: 1fr; }
+      .about-left { border-right: none; padding: 44px 0 36px; border-bottom: 1px solid var(--border); }
+      .about-right { padding: 36px 0 60px; }
+    }
+
+    /* ═══════════════════════════════════════════
+       SKILLS — exact aetherfox asymmetric bento
+    ═══════════════════════════════════════════ */
+
+    .bento {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      grid-template-rows: auto auto auto;
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
+      margin-top: 48px;
+      position: relative;
+    }
+
+    .bento-cell {
+      padding: 44px 48px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+      position: relative;
+    }
+
+    .bento-cell:hover { background: rgba(255,255,255,0.012); }
+
+    /* Cell 1 — top-left, spans 2 rows tall */
+    .bento-cell:nth-child(1) { grid-column: 1; grid-row: 1 / span 2; }
+
+    /* Cell 2 — top-right */
+    .bento-cell:nth-child(2) { grid-column: 2; grid-row: 1; }
+
+    /* Cell 3 — middle-right, highlighted gold diagonal */
+    .bento-cell:nth-child(3) {
+      grid-column: 2; grid-row: 2;
+      background-color: rgba(201,149,108,0.04);
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent 0px, transparent 6px,
+        rgba(201,149,108,0.035) 6px, rgba(201,149,108,0.035) 7px
+      );
+    }
+
+    .bento-cell:nth-child(3):hover {
+      background-color: rgba(201,149,108,0.08);
+    }
+
+    /* Cell 4 — bottom-left */
+    .bento-cell:nth-child(4) { grid-column: 1; grid-row: 3; border-bottom: none; }
+
+    /* Cell 5 — bottom-right */
+    .bento-cell:nth-child(5) { grid-column: 2; grid-row: 3; border-bottom: none; }
+
+    /* Gold title + icon for cell 3 */
+    .bento-cell:nth-child(3) h3      { color: var(--gold); }
+    .bento-cell:nth-child(3) .cell-icon { color: var(--gold); }
+
+    /* Diamond ornament positions — corners + column divider midpoints + right-edge intersections */
+    .bento .diamond.tl { top: -5px;  left: -5px; }
+    .bento .diamond.tr { top: -5px;  right: -5px; }
+    .bento .diamond.bl { bottom: -5px; left: -5px; }
+    .bento .diamond.br { bottom: -5px; right: -5px; }
+    /* Top of column divider */
+    .bento .diamond.tc { top: -5px;  left: calc(60% - 5px); transform: rotate(45deg); }
+    /* Bottom of column divider */
+    .bento .diamond.bc { bottom: -5px; left: calc(60% - 5px); transform: rotate(45deg); }
+    /* Right edge — between cell 2 and cell 3 (at ~33% of height) */
+    .bento .diamond.mr { right: -5px; top: 33.3%; transform: translateY(-50%) rotate(45deg); }
+    /* Column divider — between cell 1 bottom and row 3 (at ~66% of height) */
+    .bento .diamond.mc { left: calc(60% - 5px); top: 66.6%; transform: translateY(-50%) rotate(45deg); }
+
+    /* Icon + title inline */
+    .cell-head {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .cell-icon {
+      width: 22px; height: 22px;
+      color: var(--muted); flex-shrink: 0;
+    }
+
+    .bento-cell h3 {
+      font-family: var(--serif);
+      font-size: 1.22rem; font-weight: 600;
+      color: var(--text); letter-spacing: 0.005em; line-height: 1.2;
+    }
+
+    .bento-cell p {
+      font-family: var(--sans);
+      font-size: 0.85rem; color: var(--muted);
+      line-height: 1.72; font-weight: 300;
+    }
+
+    /* Tags hidden in skills bento — clean reference look */
+    .bento-cell .tags { display: none; }
+
+    @media(max-width: 768px){
+      .bento { grid-template-columns: 1fr; grid-template-rows: auto; border-left: none; }
+      .bento-cell { grid-column: 1 !important; grid-row: auto !important; padding: 36px 0; border-left: none; border-bottom: 1px solid var(--border) !important; }
+      .bento-cell:last-child { border-bottom: none !important; }
+      .bento .diamond { display: none; }
+    }
+
+    /* ═══════════════════════════════════════════
+       PROJECTS — 3-col bento + full-width homelab
+    ═══════════════════════════════════════════ */
+
+    .proj-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      border-top: 1px solid var(--border);
+      margin-top: 48px; position: relative;
+    }
+
+    .proj-cell {
+      padding: 36px 34px 30px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      text-decoration: none; color: inherit;
+      transition: background 0.25s;
+    }
+
+    .proj-cell:nth-child(3n+3):not(.proj-wide) { border-right: none; }
+    .proj-cell:hover:not(.proj-wide) { background: rgba(255,255,255,0.015); }
+
+    .proj-num {
+      font-family: var(--mono);
+      font-size: 0.58rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.16); margin-bottom: 18px;
+    }
+
+    .proj-cell h3 {
+      font-family: var(--serif);
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--white); line-height: 1.3; margin-bottom: 11px;
+    }
+
+    .proj-cell p {
+      font-family: var(--sans);
+      font-size: 0.8rem; color: var(--muted);
+      line-height: 1.68; flex: 1; font-weight: 300;
+    }
+
+    .proj-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 22px; padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .proj-arrow {
+      font-family: var(--mono);
+      font-size: 0.8rem; color: var(--accent);
+      opacity: 0; transition: opacity 0.2s; flex-shrink: 0;
+    }
+
+    .proj-cell:hover .proj-arrow { opacity: 1; }
+
+    /* Homelab — full width */
+    .proj-wide {
+      grid-column: 1/-1;
+      padding: 52px var(--col);
+      border-right: none;
+      background: rgba(126,200,227,0.025);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: start;
+      transition: background 0.25s;
+    }
+
+    .proj-wide:hover { background: rgba(126,200,227,0.05); }
+
+    .proj-wide h3 {
+      font-family: var(--serif);
+      font-size: 1.8rem; font-weight: 600;
+      color: var(--white); margin-bottom: 14px;
+    }
+
+    .proj-wide p {
+      font-family: var(--sans);
+      font-size: 0.88rem; color: var(--muted);
+      line-height: 1.74; margin-bottom: 24px; font-weight: 300;
+    }
+
+    .lab-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .lab-list li {
+      font-family: var(--mono);
+      font-size: 0.75rem; color: rgba(232,228,217,0.45);
+      line-height: 1.6; display: flex; gap: 12px; align-items: flex-start;
+    }
+
+    .lab-list li::before { content: '—'; color: var(--accent); flex-shrink: 0; }
+
+    @media(max-width:900px){
+      .proj-grid { grid-template-columns: 1fr 1fr; }
+      .proj-cell:nth-child(2n+2):not(.proj-wide) { border-right: none; }
+      .proj-cell:nth-child(3n+3):not(.proj-wide) { border-right: 1px solid var(--border); }
+      .proj-wide { grid-template-columns: 1fr; padding: 40px 0; gap: 32px; }
+    }
+
+    @media(max-width:540px){
+      .proj-grid { grid-template-columns: 1fr; }
+      .proj-cell { border-right: none !important; padding: 32px 0; }
+    }
+
+    /* ═══════════════════════════════════════════
+       EDUCATION
+    ═══════════════════════════════════════════ */
+
+    .edu-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--border); margin-top: 48px;
+      position: relative;
+    }
+
+    .edu-cell {
+      padding: 44px 48px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .edu-cell.no-right { border-right: none; }
+
+    .edu-period {
+      font-family: var(--mono);
+      font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 12px;
+    }
+
+    .edu-cell h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--white); margin-bottom: 7px; line-height: 1.3;
+    }
+
+    .edu-school {
+      font-family: var(--mono);
+      font-size: 0.76rem; color: var(--accent);
+      font-weight: 400; margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+
+    .edu-metas { display: flex; flex-direction: column; gap: 5px; }
+
+    .edu-meta {
+      font-family: var(--sans);
+      font-size: 0.8rem; color: var(--muted); font-weight: 300;
+    }
+
+    .cert-row {
+      grid-column: 1/-1;
+      padding: 32px 48px; border-right: none;
+      display: flex; align-items: center; gap: 24px;
+    }
+
+    .cert-bar {
+      width: 3px; height: 44px; flex-shrink: 0;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      border-radius: 2px;
+    }
+
+    .cert-name {
+      font-family: var(--serif);
+      font-size: 1.05rem; font-weight: 600; color: var(--white);
+    }
+
+    .cert-by {
+      font-family: var(--mono);
+      font-size: 0.72rem; color: var(--muted); margin-top: 4px;
+    }
+
+    .cert-badge {
+      margin-left: auto; flex-shrink: 0;
+      background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25);
+      color: var(--green); font-family: var(--mono);
+      font-size: 0.62rem; font-weight: 600;
+      padding: 5px 14px; border-radius: 980px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    @media(max-width:768px){
+      .edu-grid { grid-template-columns: 1fr; }
+      .edu-cell { border-right: none !important; padding: 36px 0; }
+      .cert-row { padding: 28px 0; flex-wrap: wrap; }
+      .cert-badge { margin-left: 0; }
+    }
+
+    /* ═══════════════════════════════════════════
+       RESUME
+    ═══════════════════════════════════════════ */
+
+    .resume-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border-top: 1px solid var(--border); margin-top: 48px;
+      position: relative;
+    }
+
+    .resume-cell {
+      padding: 40px 34px; display: flex; flex-direction: column;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.25s;
+    }
+
+    .resume-cell:last-child { border-right: none; }
+    .resume-cell:hover { background: rgba(255,255,255,0.015); }
+
+    .resume-role {
+      font-family: var(--mono);
+      font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      margin-bottom: 11px;
+    }
+
+    .rc-blue   .resume-role { color: var(--accent); }
+    .rc-purple .resume-role { color: #a78bfa; }
+    .rc-green  .resume-role { color: var(--green); }
+    .rc-orange .resume-role { color: var(--gold); }
+
+    .resume-cell h3 {
+      font-family: var(--serif);
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--white); margin-bottom: 10px; line-height: 1.25;
+    }
+
+    .rs-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: var(--mono);
+      font-size: 0.6rem; font-weight: 600;
+      padding: 3px 10px; border-radius: 980px;
+      margin-bottom: 16px; width: fit-content;
+      letter-spacing: 0.04em;
+    }
+
+    .rs-dot { width: 5px; height: 5px; border-radius: 50%; }
+
+    .rs-ok   { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25); color: var(--green); }
+    .rs-ok .rs-dot { background: var(--green); }
+    .rs-wait { background: rgba(201,149,108,0.1); border: 1px solid rgba(201,149,108,0.25); color: var(--gold); }
+    .rs-wait .rs-dot { background: var(--gold); }
+
+    .resume-cell p {
+      font-family: var(--sans);
+      font-size: 0.78rem; color: var(--muted);
+      line-height: 1.7; flex: 1; font-weight: 300; margin-bottom: 18px;
+    }
+
+    .rtags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 22px; }
+
+    .rtag {
+      font-family: var(--mono);
+      font-size: 0.6rem; color: rgba(232,228,217,0.35);
+      border: 1px solid var(--border2); padding: 2px 8px; border-radius: 2px;
+    }
+
+    .rd-btn {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      padding: 11px 0; width: 100%; border-radius: 4px;
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+      text-decoration: none; letter-spacing: 0.05em; text-transform: lowercase;
+      border: 1px solid transparent; transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .rd-btn:hover { transform: translateY(-1px); opacity: 0.85; }
+
+    .rc-blue   .rd-btn { background: rgba(126,200,227,0.08); border-color: rgba(126,200,227,0.2); color: var(--accent); }
+    .rc-purple .rd-btn { background: rgba(167,139,250,0.08); border-color: rgba(167,139,250,0.2); color: #a78bfa; }
+    .rc-green  .rd-btn { background: rgba(74,222,128,0.08);  border-color: rgba(74,222,128,0.2);  color: var(--green); }
+    .rc-orange .rd-btn { background: rgba(201,149,108,0.08); border-color: rgba(201,149,108,0.2); color: var(--gold); }
+
+    .rd-btn.off { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+
+    @media(max-width:900px){
+      .resume-grid { grid-template-columns: 1fr 1fr; }
+      .resume-cell:nth-child(even) { border-right: none; }
+    }
+
+    @media(max-width:480px){
+      .resume-grid { grid-template-columns: 1fr; }
+      .resume-cell { border-right: none !important; }
+    }
+
+    /* ═══════════════════════════════════════════
+       CONTACT CTA — centered, like aetherfox
+    ═══════════════════════════════════════════ */
+    .cta-section {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cta-inner {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; padding: 120px 24px 140px;
+      position: relative;
+    }
+
+    .cta-inner .diamond.tl { top: -5px; left: -5px; }
+    .cta-inner .diamond.tr { top: -5px; right: -5px; }
+    .cta-inner .diamond.bl { bottom: -5px; left: -5px; }
+    .cta-inner .diamond.br { bottom: -5px; right: -5px; }
+    .cta-inner .diamond.tc { top: -5px; left: 50%; }
+    .cta-inner .diamond.bc { bottom: -5px; left: 50%; }
+
+    .cta-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.14em; color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .cta-title {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+      font-weight: 600; line-height: 1.07;
+      color: var(--white); letter-spacing: -0.015em;
+      margin-bottom: 48px;
+    }
+
+    /* ═══════════════════════════════════════════
+       FOOTER — centered, like aetherfox
+    ═══════════════════════════════════════════ */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 60px 40px 36px; gap: 0;
+    }
+
+    .footer-name {
+      font-family: var(--serif);
+      font-size: 1.3rem; font-weight: 600;
+      color: var(--text); margin-bottom: 10px;
+    }
+
+    .footer-email {
+      font-family: var(--mono);
+      font-size: 0.76rem; font-weight: 400;
+      color: var(--accent); text-decoration: none;
+      letter-spacing: 0.08em; margin-bottom: 28px;
+      transition: opacity 0.2s;
+    }
+
+    .footer-email:hover { opacity: 0.7; }
+
+    .footer-socials {
+      display: flex; align-items: center; gap: 22px; margin-bottom: 32px;
+    }
+
+    .fsoc {
+      display: flex; color: rgba(232,228,217,0.38);
+      text-decoration: none; transition: color 0.2s, transform 0.2s;
+    }
+
+    .fsoc:hover { color: var(--white); transform: translateY(-2px); }
+
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 0.65rem; color: rgba(255,255,255,0.18);
+      letter-spacing: 0.04em; padding-top: 22px;
+      border-top: 1px solid var(--border);
+      width: 100%; text-align: center;
+    }
+
+    @media(max-width:480px){
+      .footer-inner { padding: 48px 20px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Anbazhagan M.</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#education">education</a></li>
+    <li><a href="#resume">resume</a></li>
+    <li><a href="#contact" class="nav-cta">contact</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="home">
+  <div class="hero-mountain"></div>
+  <div class="hero-badge"><span class="badge-dot"></span>Open to Opportunities</div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Navigate Infrastructure with Confidence.</p>
+    <h1>Building Networks<br />That Never<br />Go Down.</h1>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-accent">view projects</a>
+      <a href="#resume" class="btn btn-ghost">download resume</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section class="sec" id="about">
+  <div class="container">
+    <div class="sec-header">
+      <h2 class="sec-heading">About Me</h2>
+      <span class="sec-tagline">Infrastructure builder. Problem solver.</span>
+    </div>
+    <div class="about-grid">
+      <span class="diamond tl"></span>
+      <span class="diamond tr"></span>
+      <span class="diamond tc"></span>
+      <span class="diamond bl"></span>
+      <span class="diamond br"></span>
+      <span class="diamond bc"></span>
+
+      <div class="about-left">
+        <p class="about-text">I'm a final-year Electronics and Communication Engineering student at Sathyabama Institute of Science and Technology with a deep focus on networking and DevOps infrastructure.</p>
+        <p class="about-text">From configuring VLANs and OSPF routing to orchestrating full GitOps pipelines and self-healing Kubernetes clusters — I engineer systems that are resilient, observable, and secure from the ground up.</p>
+        <p class="about-text">I maintain a personal home lab where I simulate real-world infrastructure using Docker, NGINX, Prometheus, and Grafana — learning by building, not just reading.</p>
+        <div class="stat-row">
+          <div class="stat-cell"><div class="stat-num">9+</div><div class="stat-lbl">Projects</div></div>
+          <div class="stat-cell"><div class="stat-num">1</div><div class="stat-lbl">Cert</div></div>
+          <div class="stat-cell"><div class="stat-num">2+</div><div class="stat-lbl">Yrs Lab</div></div>
+        </div>
+      </div>
+
+      <div class="about-right">
+        <div class="meta-table">
+          <div class="meta-cell"><div class="meta-lbl">Location</div><div class="meta-val">Chennai, Tamil Nadu</div></div>
+          <div class="meta-cell"><div class="meta-lbl">Degree</div><div class="meta-val">B.E. ECE</div></div>
+          <div class="meta-cell"><div class="meta-lbl">University</div><div class="meta-val">Sathyabama INT</div></div>
+          <div class="meta-cell"><div class="meta-lbl">Graduation</div><div class="meta-val">Jun 2026</div></div>
+          <div class="meta-cell"><div class="meta-lbl">GPA</div><div class="meta-val">6.98 / 10</div></div>
+          <div class="meta-cell"><div class="meta-lbl">Status</div><div class="meta-val" style="color:var(--green);">Open to Work</div></div>
+          <div class="meta-cell span2"><div class="meta-lbl">Email</div><div class="meta-val">manbazhagan18@gmail.com</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section class="sec" id="skills">
+  <div class="container">
+    <div class="sec-header">
+      <h2 class="sec-heading">Our Services</h2>
+      <span class="sec-tagline">From protocols to pipelines — cohesive, fast, reliable.</span>
+    </div>
+    <div class="bento">
+      <span class="diamond tl"></span>
+      <span class="diamond tr"></span>
+      <span class="diamond tc"></span>
+      <span class="diamond bl"></span>
+      <span class="diamond br"></span>
+      <span class="diamond bc"></span>
+      <span class="diamond mr"></span>
+      <span class="diamond mc"></span>
+
+      <!-- Cell 1: top-left, spans 2 rows tall (like "Design Systems & UI") -->
+      <div class="bento-cell">
+        <div class="cell-head">
+          <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          <h3>Networking</h3>
+        </div>
+        <p>Core protocols and architectures powering every enterprise and cloud network — TCP/IP, VLANs, OSPF, BGP, subnetting, ACL fundamentals, and LAN/WAN concepts in production.</p>
+      </div>
+
+      <!-- Cell 2: top-right (like "Web Dev & Performance") -->
+      <div class="bento-cell">
+        <div class="cell-head">
+          <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <h3>Monitoring & Observability</h3>
+        </div>
+        <p>Real-time insight into every layer of the stack — raw server metrics with Prometheus and Grafana to distributed traces with OpenTelemetry.</p>
+      </div>
+
+      <!-- Cell 3: middle-right, highlighted gold (like "Strategy & Consulting") -->
+      <div class="bento-cell hi">
+        <div class="cell-head">
+          <svg class="cell-icon hi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <h3>Cloud & DevOps</h3>
+        </div>
+        <p>Multi-cloud deployments across AWS and Azure, GitOps pipelines, infrastructure as code, CI/CD automation, and self-healing cluster management.</p>
+      </div>
+
+      <!-- Cell 4: bottom-left (like "Integrations & Tooling") -->
+      <div class="bento-cell">
+        <div class="cell-head">
+          <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="10" ry="4"/><path d="M2 12c0 2.21 4.48 4 10 4s10-1.79 10-4"/><path d="M2 16c0 2.21 4.48 4 10 4s10-1.79 10-4"/></svg>
+          <h3>Containerization & Storage</h3>
+        </div>
+        <p>Docker with custom bridge networking, NGINX reverse proxy with SSL termination, NAS configuration using SMB and NFS for centralised file storage.</p>
+      </div>
+
+      <!-- Cell 5: bottom-right (like "Audits & Growth") -->
+      <div class="bento-cell">
+        <div class="cell-head">
+          <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <h3>Programming & Automation</h3>
+        </div>
+        <p>Python and Bash scripting to automate operations, Git for version control, Linux CLI for system administration, traceroute for network diagnostics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section class="sec" id="projects">
+  <div class="container">
+    <div class="sec-header">
+      <h2 class="sec-heading">Projects</h2>
+      <span class="sec-tagline">Systems built, not just studied.</span>
+    </div>
+    <div class="proj-grid">
+      <span class="diamond tl"></span><span class="diamond tr"></span>
+      <span class="diamond bl"></span><span class="diamond br"></span>
+
+      <a href="https://github.com/anbazhagan18" target="_blank" class="proj-cell">
+        <div class="proj-num">01 — GitOps</div>
+        <h3>End-to-End DevOps Pipeline with GitOps</h3>
+        <p>Automated deployment using GitOps principles with auto-syncing environments, automated rollbacks, and multi-environment promotion pipelines.</p>
+        <div class="proj-footer"><div class="tags"><span class="tag">GitOps</span><span class="tag">CI/CD</span><span class="tag">ArgoCD</span></div><span class="proj-arrow">↗</span></div>
+      </a>
+
+      <a href="https://github.com/anbazhagan18" target="_blank" class="proj-cell">
+        <div class="proj-num">02 — ML Infra</div>
+        <h3>Intelligent Auto-Scaling System</h3>
+        <p>Smart infrastructure scaling using ML models and real-time metrics to proactively predict traffic patterns beyond traditional CPU/memory thresholds.</p>
+        <div class="proj-footer"><div class="tags"><span class="tag">ML</span><span class="tag">Kubernetes</span><span class="tag">Prometheus</span></div><span class="proj-arrow">↗</span></div>
+      </a>
+
+      <a href="https://github.com/anbazhagan18" target="_blank" class="proj-cell">
+        <div class="proj-num">03 — Multi-Cloud</div>
+        <h3>Multi-Cloud Deployment & Disaster Recovery</h3>
+        <p>Resilient infrastructure across AWS and Azure with automated failover, comprehensive backup strategies, and zero-downtime disaster recovery.</p>
+        <div class="proj-footer"><div class="tags"><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">Terraform</span></div><span class="proj-arrow">↗</span></div>
+      </a>
+
+      <a href="https://github.com/anbazhagan18" target="_blank" class="proj-cell">
+        <div class="proj-num">04 — Security</div>
+        <h3>DevSecOps Pipeline</h3>
+        <p>Security-first CI/CD integrating SAST/DAST scanning, container vulnerability detection, automated secrets rotation, and zero-trust access at every stage.</p>
+        <div class="proj-footer"><div class="tags"><span class="tag">SAST</span><span class="tag">DAST</span><span class="tag">Zero-Trust</span></div><span class="proj-arrow">↗</span></div>
+      </a>
+
+      <a href="https://github.com/anbazhagan18" target="_blank" class="proj-cell">
+        <div class="proj-num">05 — Observability</div>
+        <h3>Full Observability Stack</h3>
+        <p>Complete observability for distributed microservices correlating traces, logs, and metrics in real-time using OpenTelemetry for deep performance insights.</p>
+        <div class="proj-footer"><div class="tags"><span class="tag">OTel</span><span class="tag">Grafana</span><span class="tag">Jaeger</span></div><span class="proj-arrow">↗</span></div>
+      </a>
+
+      <a href="https://github.com/anbazhagan18" target="_blank" class="proj-cell">
+        <div class="proj-num">06 — ChatOps</div>
+        <h3>ChatOps for Infrastructure Automation</h3>
+        <p>Intelligent chat interface enabling teams to manage infrastructure through natural language commands powered by NLP for complex workflow triggers.</p>
+        <div class="proj-footer"><div class="tags"><span class="tag">NLP</span><span class="tag">Slack API</span><span class="tag">Ansible</span></div><span class="proj-arrow">↗</span></div>
+      </a>
+
+      <a href="https://github.com/anbazhagan18" target="_blank" class="proj-cell">
+        <div class="proj-num">07 — Serverless</div>
+        <h3>Serverless DevOps Framework</h3>
+        <p>Fully serverless application framework with IaC, canary deployments, feature flags, and automated CI/CD workflows for cost-effective scaling.</p>
+        <div class="proj-footer"><div class="tags"><span class="tag">Lambda</span><span class="tag">IaC</span><span class="tag">Canary</span></div><span class="proj-arrow">↗</span></div>
+      </a>
+
+      <a href="https://github.com/anbazhagan18" target="_blank" class="proj-cell">
+        <div class="proj-num">08 — Autonomous</div>
+        <h3>Self-Healing Infrastructure</h3>
+        <p>Autonomous system monitoring infrastructure health and automatically remediating failures through anomaly detection and intelligent recovery mechanisms.</p>
+        <div class="proj-footer"><div class="tags"><span class="tag">Anomaly</span><span class="tag">K8s</span><span class="tag">Python</span></div><span class="proj-arrow">↗</span></div>
+      </a>
+
+      <a href="https://github.com/anbazhagan18" target="_blank" class="proj-cell">
+        <div class="proj-num">09 — Vision</div>
+        <h3>Crack Detection Using OpenCV</h3>
+        <p>11-stage OpenCV pipeline with log transformation, Canny edge detection, and ORB keypoint analysis for real-time structural damage detection.</p>
+        <div class="proj-footer"><div class="tags"><span class="tag">OpenCV</span><span class="tag">Python</span><span class="tag">CV</span></div><span class="proj-arrow">↗</span></div>
+      </a>
+
+      <!-- Homelab — full-width featured -->
+      <a href="https://github.com/anbazhagan18" target="_blank" class="proj-cell proj-wide">
+        <div>
+          <div style="font-family:var(--mono);font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;">Featured — Home Lab</div>
+          <h3>Self-Hosted Infrastructure & Monitoring Lab</h3>
+          <p>A hands-on home lab simulating real-world server deployment, containerised services, NAS storage, and full-stack observability — built entirely from scratch.</p>
+          <span class="btn btn-accent" style="display:inline-flex;font-size:0.72rem;padding:10px 20px;margin-top:8px;">view on github</span>
+        </div>
+        <ul class="lab-list">
+          <li>Deployed containerised apps using Docker with custom bridge networking and port mapping</li>
+          <li>Configured NGINX as reverse proxy with SSL termination and virtual host routing</li>
+          <li>Set up NAS using SMB/NFS for centralised file storage and backups</li>
+          <li>Implemented Prometheus + Grafana for CPU, memory, disk and network monitoring</li>
+          <li>Created real-time dashboards for server health visualisation</li>
+          <li>Automated weekly health reports via scheduled tasks and email notifications</li>
+          <li>Troubleshooting via container logs, ping, traceroute, and service monitoring</li>
+        </ul>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── EDUCATION ── -->
+<section class="sec" id="education">
+  <div class="container">
+    <div class="sec-header">
+      <h2 class="sec-heading">Education & Certifications</h2>
+      <span class="sec-tagline">The foundation of everything.</span>
+    </div>
+    <div class="edu-grid">
+      <span class="diamond tl"></span><span class="diamond tr"></span>
+      <span class="diamond tc"></span>
+      <span class="diamond bl"></span><span class="diamond br"></span>
+
+      <div class="edu-cell">
+        <div class="edu-period">Aug 2022 — Jun 2026</div>
+        <h3>Bachelor of Engineering<br />Electronics & Communication</h3>
+        <div class="edu-school">Sathyabama Institute of Science and Technology</div>
+        <div class="edu-metas">
+          <div class="edu-meta">Chennai, Tamil Nadu</div>
+          <div class="edu-meta">Cumulative GPA: 6.98 / 10</div>
+          <div class="edu-meta">Status: Ongoing</div>
+        </div>
+      </div>
+
+      <div class="cert-row">
+        <div class="cert-bar"></div>
+        <div>
+          <div class="cert-name">Cisco Network Technician</div>
+          <div class="cert-by">Issued by Cisco · Aug 2025</div>
+        </div>
+        <span class="cert-badge">Verified</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESUME ── -->
+<section class="sec" id="resume">
+  <div class="container">
+    <div class="sec-header">
+      <h2 class="sec-heading">Resume</h2>
+      <span class="sec-tagline">Tailored for every role you're hiring for.</span>
+    </div>
+    <div class="resume-grid">
+      <span class="diamond tl"></span><span class="diamond tr"></span>
+      <span class="diamond bl"></span><span class="diamond br"></span>
+
+      <div class="resume-cell rc-blue">
+        <div class="resume-role">Role</div>
+        <h3>Network Engineer</h3>
+        <span class="rs-pill rs-ok"><span class="rs-dot"></span>Available</span>
+        <p>Focused on TCP/IP, VLANs, OSPF, routing protocols, and hands-on home lab networking with monitoring and diagnostics experience.</p>
+        <div class="rtags"><span class="rtag">TCP/IP</span><span class="rtag">VLANs</span><span class="rtag">OSPF</span><span class="rtag">LAN/WAN</span></div>
+        <a href="Resume/Anbazhagan_Resume_Network_Engineer.pdf" download class="rd-btn">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 2v7M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          download resume
+        </a>
+      </div>
+
+      <div class="resume-cell rc-purple">
+        <div class="resume-role">Role</div>
+        <h3>DevOps Engineer</h3>
+        <span class="rs-pill rs-ok"><span class="rs-dot"></span>Available</span>
+        <p>Highlights GitOps pipelines, Docker, NGINX, CI/CD workflows, multi-cloud deployments, and self-healing infrastructure.</p>
+        <div class="rtags"><span class="rtag">Docker</span><span class="rtag">GitOps</span><span class="rtag">CI/CD</span><span class="rtag">AWS/Azure</span></div>
+        <a href="Resume/Anbazhagan_Resume_DevOps_Engineer.pdf" download class="rd-btn">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 2v7M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          download resume
+        </a>
+      </div>
+
+      <div class="resume-cell rc-green">
+        <div class="resume-role">Role</div>
+        <h3>IT Support Engineer</h3>
+        <span class="rs-pill rs-ok"><span class="rs-dot"></span>Available</span>
+        <p>Emphasises system administration, OS troubleshooting, network diagnostics, and infrastructure monitoring skills.</p>
+        <div class="rtags"><span class="rtag">Sys Admin</span><span class="rtag">Linux CLI</span><span class="rtag">Log Analysis</span><span class="rtag">NAS</span></div>
+        <a href="Resume/Anbazhagan_Resume_IT_Support_Engineer.pdf" download class="rd-btn">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 2v7M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          download resume
+        </a>
+      </div>
+
+      <div class="resume-cell rc-orange">
+        <div class="resume-role">Role</div>
+        <h3>Cloud Engineer</h3>
+        <span class="rs-pill rs-ok"><span class="rs-dot"></span>Available</span>
+        <p>Multi-cloud architecture, serverless deployments, IaC, disaster recovery, and cloud-native observability across AWS and Azure.</p>
+        <div class="rtags"><span class="rtag">AWS</span><span class="rtag">Azure</span><span class="rtag">IaC</span><span class="rtag">Serverless</span></div>
+        <a href="Resume/Anbazhagan_Cloud_Engineer_Resume.pdf" download class="rd-btn">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 2v7M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          download resume
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT CTA ── -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <span class="diamond tl"></span>
+    <span class="diamond tr"></span>
+    <span class="diamond bl"></span>
+    <span class="diamond br"></span>
+    <span class="diamond tc"></span>
+    <span class="diamond bc"></span>
+
+    <p class="cta-eyebrow">Ready to hire someone exceptional?</p>
+    <h2 class="cta-title">Let's Build Something<br />Remarkable Together.</h2>
+    <a href="mailto:manbazhagan18@gmail.com" class="btn btn-accent" style="font-size:0.78rem;padding:13px 32px;">get in touch</a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-name">Anbazhagan M.</div>
+    <a href="mailto:manbazhagan18@gmail.com" class="footer-email">manbazhagan18@gmail.com</a>
+    <div class="footer-socials">
+      <!-- GitHub -->
+      <a href="https://github.com/anbazhagan18" target="_blank" class="fsoc" title="GitHub">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+      </a>
+      <!-- LinkedIn -->
+      <a href="https://linkedin.com/in/anbazhagan18" target="_blank" class="fsoc" title="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <!-- Phone -->
+      <a href="tel:+919384497946" class="fsoc" title="Phone">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      </a>
+      <!-- Email -->
+      <a href="mailto:manbazhagan18@gmail.com" class="fsoc" title="Email">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+    </div>
+    <div class="footer-copy">© 2025 Anbazhagan M. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // NAV tint on scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').style.background =
+      window.scrollY > 10 ? 'rgba(14,14,14,0.97)' : 'rgba(22,22,22,0.9)';
+  });
+
+  // Mobile hamburger
+  document.getElementById('hamburger').addEventListener('click', () => {
+    const nl = document.getElementById('nav-links');
+    const isOpen = nl.style.display === 'flex';
+    nl.style.cssText = isOpen ? '' :
+      'display:flex;flex-direction:column;position:fixed;top:56px;left:0;right:0;' +
+      'background:rgba(14,14,14,0.98);padding:24px;gap:20px;' +
+      'border-bottom:1px solid rgba(255,255,255,0.08);z-index:999;backdrop-filter:blur(20px);';
+  });
+</script>
+</body>
+</html>
