@@ -36,4 +36,4 @@ Replace the PDFs in both `resumes/` (short names) and `Resume/` (capitalized pat
 - Email: manbazhagan18@gmail.com
 - Phone: +91 93844 97946
 - GitHub: https://github.com/anbazhagan1804
-- LinkedIn: https://linkedin.com/in/anbazhagan18
+- LinkedIn: https://www.linkedin.com/in/anbazhagan-m-7a2300256
